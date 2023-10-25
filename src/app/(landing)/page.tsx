@@ -9,9 +9,9 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <nav className="z-10 mt-20 w-full justify-end bg-white">
-        <div>
-          <UserButton afterSignOutUrl="/" />
+      <nav className="flex w-full justify-end">
+        <div className=" p-4">
+          <UserButton afterSignOutUrl="/">User Button</UserButton>
         </div>
       </nav>
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">

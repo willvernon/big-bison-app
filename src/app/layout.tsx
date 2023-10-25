@@ -54,7 +54,7 @@ export default function RootLayout({
         className={`${orbitron.variable}`}
       >
         {/* <CrispProvider /> */}
-        <body className={clsx("bg-white text-white", graphik.variable)}>
+        <body className={clsx("bg-[#111827] text-white", graphik.variable)}>
           <ToasterProvider />
           {/* <ModalProvider /> */}
           <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>

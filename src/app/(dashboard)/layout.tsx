@@ -1,20 +1,26 @@
-import Navbar from "@/components/layouts/Navbar";
+import NavBar from "@/components/layouts/Navbar";
+import Logo from "../../public/hbbl.png";
 
-const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
+import Image from "next/image";
+
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="bg-[#111827] relative h-full">
-      {/* <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-80 bg-gray-900">
-        <Sidebar
-          isPro={isPro}
-          apiLimitCount={apiLimitCount}
-        />
-      </div> */}
-      <main className=" pb-10">
-        {/* <Navbar /> */}
-        <Navbar />
+    <main className="h-full  ">
+      <nav className="flex w-full justify-between">
+        <div className="p-4  invert">
+          <Image
+            src={Logo}
+            width={200}
+            height={200}
+            alt="Picture of the author"
+          />
+        </div>
+        <NavBar />
+      </nav>
+      <div className="mx-auto h-full w-full max-w-screen-xl bg-[#111827]">
         {children}
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };
 

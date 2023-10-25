@@ -1,5 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider     = "mysql"
@@ -7,15 +8,105 @@ datasource db {
   relationMode = "prisma"
 }
 
-generator client {
-  provider = "prisma-client-js"
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+
+  @@index([authorId])
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Profile {
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  userId Int     @unique
+  user   User    @relation(fields: [userId], references: [id])
 
-    @@index([name])
+  @@index([userId])
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  posts   Post[]
+  profile Profile?
+}
+
+model db6e_b6a4_587f_872d_0173b33c7e84_20231025192547_vrepl {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+  authorId  Int
+
+  @@index([authorId], map: "Post_authorId_idx")
+  @@map("_0079db6e_b6a4_587f_872d_0173b33c7e84_20231025192547_vrepl")
+}
+
+model b881b912_0d7a_5c77_98ad_0ac9187af537_20231025192707_vrepl {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  title     String   @db.VarChar(255)
+  content   String?
+  published Boolean  @default(false)
+  authorId  Int
+
+  @@index([authorId], map: "Post_authorId_idx")
+  @@map("_b881b912_0d7a_5c77_98ad_0ac9187af537_20231025192707_vrepl")
+}
+
+model vt_HOLD_6efbd8a8a0b858bb857697e860871ca9_20231026192950 {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+
+  @@map("_vt_HOLD_6efbd8a8a0b858bb857697e860871ca9_20231026192950")
+}
+
+model vt_HOLD_8eb88db447eb53b18db6449b8dc5d705_20231026192953 {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([name], map: "Post_name_idx")
+  @@map("_vt_HOLD_8eb88db447eb53b18db6449b8dc5d705_20231026192953")
+}
+
+model vt_HOLD_cf7bea8e05a55110b369bc6aed5b6d27_20231026192949 {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  image_url   String? @db.VarChar(255)
+  category_id Int?
+
+  @@index([category_id], map: "category_id_idx")
+  @@map("_vt_HOLD_cf7bea8e05a55110b369bc6aed5b6d27_20231026192949")
+}
+
+model gear_ranch_categories {
+  category_id   Int       @id @default(autoincrement())
+  category_name String    @db.VarChar(255)
+  description   String?   @db.Text
+  created_at    DateTime? @default(now()) @db.Timestamp(0)
+  updated_at    DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model gear_ranch_gear {
+  gear_id           Int       @id @default(autoincrement())
+  category_id       Int?
+  gear_name         String    @db.VarChar(255)
+  gear_description  String?   @db.Text
+  gear_location     String    @db.VarChar(25)
+  checked_out_by    Int?
+  check_in_out_date DateTime? @db.Date
+  created_at        DateTime? @default(now()) @db.Timestamp(0)
+  updated_at        DateTime? @default(now()) @db.Timestamp(0)
 }

@@ -5,14 +5,13 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ClerkProvider } from "@clerk/nextjs";
 //import { Analytics } from "@vercel/analytics/react";
-
-//import NavBar from "@/components/landing/NavBar";
-import { ToasterProvider } from "@/components/toaster-provider";
-//import { ModalProvider } from "@/components/modal-provider";
 import { Orbitron } from "next/font/google";
 import { headers } from "next/headers";
-
 import { TRPCReactProvider } from "@/trpc/react";
+
+import { ToasterProvider } from "@/components/ToasterProvider";
+//import { ModalProvider } from "@/components/modal-provider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const graphik = localFont({
   src: [
@@ -55,9 +54,18 @@ export default function RootLayout({
       >
         {/* <CrispProvider /> */}
         <body className={clsx("bg-[#111827] text-white", graphik.variable)}>
-          <ToasterProvider />
-          {/* <ModalProvider /> */}
-          <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ToasterProvider />
+            {/* <ModalProvider /> */}
+            <TRPCReactProvider headers={headers()}>
+              {children}
+            </TRPCReactProvider>
+          </ThemeProvider>
         </body>
         {/* <Analytics /> */}
       </html>
